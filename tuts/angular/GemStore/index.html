@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="store">
+	<head>
+		<link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+	</head>
+	
+	<body ng-controller="StoreController as store">
+		<script type="text/javascript" src="angular.min.js"></script>
+		<script type="text/javascript" src="app.js"></script>
+		<p> I am {{ 4 + 6 }} </p>
+		<p> {{ "Hello" + " World" }} </p>
+		
+		<div ng-repeat="product in store.products | limitTo:100 | orderBy:'-price'">
+			<h1> {{product.name | uppercase}} </h1>
+			<h2> {{product.price | currency}} </h2>
+			<p>  {{product.description | limitTo:20}} </p>
+			<img ng-src="{{product.image}}"/>
+			<button ng-show="store.product.canPurchase"> Add to Cart </button>
+			
+		</div>
+	</body>
+</html>
