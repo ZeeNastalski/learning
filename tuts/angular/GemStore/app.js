@@ -1,51 +1,69 @@
 (function(){
-	var app = angular.module('store', [ ]);
+    var app = angular.module('store', [ ]);
 
-	app.controller('StoreController', function() {
-		this.products = gems;
-	});
+    app.controller('StoreController', function() {
+        this.products = gems;
+    });
 	
 	
-	app.controller('PanelController', function() {
-		this.tab = 1;
+    app.controller('PanelController', function() {
+        this.tab = 1;
 		
-		this.selectTab = function(setTab) {
-			this.tab = setTab;
-		};
+        this.selectTab = function(setTab) {
+            this.tab = setTab;
+        };
 		
-		this.isSelected = function(checkTab) {
-			return checkTab === this.tab;
-		};
-	});
+        this.isSelected = function(checkTab) {
+            return checkTab === this.tab;
+        };
+    });
 	
 	
 	
-	app.controller('TabController', function(){
-		this.tab = 1;
+    app.controller('TabController', function(){
+        this.tab = 1;
 
-		this.setTab = function(newValue){
-			this.tab = newValue;
-		};
+        this.setTab = function(newValue){
+            this.tab = newValue;
+        };
 
-		this.isSet = function(tabName){
-			return this.tab === tabName;
-		};
-	});
+        this.isSet = function(tabName){
+            return this.tab === tabName;
+        };
+    });
 	
 
 	
-	app.controller('ReviewController', function() {
-		this.review = {};
+    app.controller('ReviewController', function() {
+        this.review = {};
 		
-		this.addReview = function(product) {
-			this.review.createdOn = Date.now();
-			product.reviews.push(this.review);
-			this.review = {};
-		};
-	});
+        this.addReview = function(product) {
+            this.review.createdOn = Date.now();
+            product.reviews.push(this.review);
+            this.review = {};
+        };
+    });
 	
 	
-	
+    
+    app.directive('productTitle', function () {
+        return {
+            restrict: 'E',
+            templateUrl: 'product-title.html'
+        };
+    });
+    
+    
+
+    /*
+    app.directive('productTitle', function () {
+        return {
+            restrict: 'A',
+            templateUrl: 'product-title.html'
+        };
+    });
+	*/
+
 	var gems = [
 		{
 			name: "Craponite",
