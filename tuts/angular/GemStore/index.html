@@ -1,98 +1,31 @@
 <!DOCTYPE html>
+<html ng-app="gemStore">
+<head>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <script type="text/javascript" src="Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
 
-<html ng-app="store">
-	<head>
-		<link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
-		<style>
-			.ng-invalid.ng-dirty {
-				border-color: #FA787E;
-			}
-			
-			.ng-valid.ng-dirty {
-				border-color: #78FA89;
-			}
-		</style>
-	</head>
-	
-	<body ng-controller="StoreController as store">
-		<script type="text/javascript" src="Scripts/angular.js"></script>
-		<script type="text/javascript" src="app.js"></script>
+<body ng-controller="StoreController as store">
+    <!--  Store Header  -->
+    <header>
+        <h1 class="text-center">Flatlander Crafted Gems</h1>
+        <h2 class="text-center">– an Angular store –</h2>
+    </header>
 
-		
-		<div ng-repeat="product in store.products | limitTo:100 | orderBy:'-price'">
-			<section ng-controller="PanelController as panel">
-			
-            
-            <!--<div ng-include="'product-title.html'"></div>-->            
-            <product-title></product-title> 
-                                    
+    <!--  Products Container  -->
+    <div class="list-group">
+        <!--  Product Container  -->
+        <div class="list-group-item" ng-repeat="product in store.products">
+            <h3>{{product.name}} <em class="pull-right">{{product.price | currency}}</em></h3>
 
-			<p>  {{product.description | limitTo:20}} </p>
-			<img ng-src="{{product.image}}"/>
-			<button ng-show="store.product.canPurchase"> Add to Cart </button>
-			
-			<ul class="nav nav-pills">
-				<li ng-class="{ active:panel.isSelected(1)}">
-					<a href ng-click="panel.selectTab(1)">-- Description -</a>
-				</li>
-				
-				<li ng-class="{ active:panel.isSelected(2)}">
-					<a href ng-click="panel.selectTab(2)">-Specicication-</a>
-				</li>
-				
-				<li ng-class="{ active:panel.isSelected(3)}">
-					<a href ng-click="panel.selectTab(3)">-Reviews--</a>
-				</li>
-			</ul>
-			
-			<div class="panel" ng-show="panel.isSelected(1)">
-				<h4>Description</h4>
-				<p>{{product.description}}</p>
-			</div>
-			
-			<div class="panel" ng-show="panel.isSelected(2)">
-				<h4>Specifications</h4>
-				<blockquote>None yet</blockquote>
-			</div>
-			
-			<div class="panel" ng-show="panel.isSelected(3)">
-				<h4>Reviews</h4>
-				<blockquote ng-repeat="review in product.reviews">
-				<b>Stars: {{review.stars}}</b>
-				{{review.body}}
-				<br/>
-				<cite>by: {{review.author}} on {{review.createdOn | date}}</cite>
-				</blockquote>
-				
-				<form name="reviewForm" ng-controller="ReviewController as reviewCtrl"
-					ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
-					
-					
-					<blockquote>
-						<b>Stars: {{reviewCtrl.review.stars}}</b>
-						{{reviewCtrl.review.body}}
-						<br/>
-						<cite>by: {{reviewCtrl.review.author}}</cite>
-					</blockquote>
-					
-					
-					
-					<select ng-model="reviewCtrl.review.stars" required>
-						<option value="1"> 1 star</option>
-						<option value="2"> 2 star</option>
-					</select>
-					<br/>					
-					<textarea ng-model="reviewCtrl.review.body" required> </textarea><br/>
-					<label>by:</label><br/>
-					<input ng-model="reviewCtrl.review.author" type="email" required/><br/>
-					<div>reviewForm is {{reviewForm.$valid}}</div>
-					<input type="submit" value="Submit">
-				</form>
-				
-			</div>
-			
-			
-			</section>
-		</div>
-	</body>
+            <!-- Image Gallery  -->
+            <product-gallery></product-gallery>
+
+            <!-- Product Tabs  -->
+            <product-tabs></product-tabs>
+        </div>
+
+    </div>
+</body>
 </html>
