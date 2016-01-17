@@ -168,13 +168,21 @@ int main(int argc, char *argv[]) {
 
 	while (getline(stream, line)) {		
 		sscanf(line.c_str(), "%d %d %d %d %d", &arr[0], &arr[1], &arr[2], &arr[3], &arr[4]);
+		
+		VectorCombinatorics<int> combinatorics;
+		combinatorics.permutations(arr, nextPermutation);
+
+		if (YES) 
+			{ cout << "YES" << endl; }
+		else
+		{
+			cout << "NO" << endl;
+		}
+
+		YES = false;
+
 	}
 
-	VectorCombinatorics<int> combinatorics;
-    combinatorics.permutations(arr, nextPermutation);
-
-	if (YES) cout << "YES";
-	else cout << "NO" ;
 	
 	return 0;
 
