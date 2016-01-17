@@ -7,6 +7,9 @@
 
 using namespace std;
 
+/*
+ * Problem: https://www.hackerrank.com/challenges/bfsshortreach
+ */
 
 class UndirectedGraph
 {
