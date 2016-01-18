@@ -4,12 +4,15 @@ namespace Threads
 {
     class Program
     {
+        static bool stop = false;
 
-        public static void ThreadMethod()
+        public static void ThreadMethod(object o)
         {
-            for(int i = 0; i<10; i++)
+            int number = (int)o;
+
+            while(!stop)
             {
-                System.Console.WriteLine("Thread " + i);
+                System.Console.WriteLine("Thread printing" + number);
                 Thread.Sleep(0);
             }
                 
@@ -18,14 +21,17 @@ namespace Threads
 
         static void Main(string[] args)
         {
-            Thread t = new Thread(new ThreadStart(ThreadMethod));
-            t.Start();
+            // ThreadStart is a wrapper on the thread method
+            // ParameterizedThreadStart allows for a start method to have one arg of type object
+            Thread t = new Thread(new ParameterizedThreadStart(ThreadMethod));
+            
+            //t.IsBackground = true;
+            t.Start(10);
 
-            for(int i=0; i<10; i++)
-            {
-                System.Console.WriteLine("Main thread " + i);
-                Thread.Sleep(0);
-            }
+            System.Console.ReadKey();
+            stop = true;
+            t.Join();
+
         }
 
     }
