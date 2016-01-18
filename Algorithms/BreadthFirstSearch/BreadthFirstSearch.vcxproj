@@ -22,7 +22,9 @@
     <ClCompile Include="BreadthFirstSearch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt" />
+    <Text Include="input1.txt" />
+    <Text Include="input2.txt" />
+    <Text Include="output2.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{83ECCDEC-A8FC-4953-BA1B-C88F98826539}</ProjectGuid>

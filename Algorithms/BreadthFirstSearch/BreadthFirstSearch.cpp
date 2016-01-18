@@ -44,6 +44,7 @@ public:
 
 		bfs_queue.push(start);
 		distances[start] = 0;
+		visited[start] = true;
 
 		while (!bfs_queue.empty())
 		{
@@ -57,6 +58,7 @@ public:
 				{					
 					bfs_queue.push(v);
 					distances[v] = distances[currentNode] + cost;
+					visited[v] = true;
 				}
 			}
 

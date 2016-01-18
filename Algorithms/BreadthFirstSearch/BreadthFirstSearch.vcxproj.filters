@@ -4,6 +4,8 @@
     <ClCompile Include="BreadthFirstSearch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt" />
+    <Text Include="input2.txt" />
+    <Text Include="output2.txt" />
+    <Text Include="input1.txt" />
   </ItemGroup>
 </Project>
