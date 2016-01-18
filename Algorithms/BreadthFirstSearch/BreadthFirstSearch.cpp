@@ -39,26 +39,26 @@ public:
 	vector<int> bfs_distances(int start, int cost)
 	{
 		queue<int> bfs_queue;
-		vector<bool> visited(V, false);
+		vector<bool> marked(V, false);
 		vector<int> distances(V, -1);
 
 		bfs_queue.push(start);
 		distances[start] = 0;
-		visited[start] = true;
+		marked[start] = true;
 
 		while (!bfs_queue.empty())
 		{
 			int currentNode = bfs_queue.front();
 			bfs_queue.pop();
-			visited[currentNode] = true;
+			marked[currentNode] = true;
 
 			for (int v : adjacency(currentNode))
 			{
-				if (!visited[v])
+				if (!marked[v])
 				{					
 					bfs_queue.push(v);
 					distances[v] = distances[currentNode] + cost;
-					visited[v] = true;
+					marked[v] = true;
 				}
 			}
 
