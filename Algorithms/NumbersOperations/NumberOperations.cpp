@@ -86,6 +86,8 @@ int apply_op(int a, int b, int op)
 	if (op == 0) return a + b;
 	if (op == 1) return a - b;
 	if (op == 2) return a * b;
+
+	return 0;
 }
 
 
@@ -94,6 +96,8 @@ string opCodeToString(int op)
 	if (op == 0) return "+";
 	if (op == 1) return "-";
 	if (op == 2) return "*";
+
+	return "ERROR";
 }
 
 
