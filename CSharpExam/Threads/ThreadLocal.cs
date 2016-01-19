@@ -8,5 +8,9 @@ namespace Threads
 {
     class ThreadLocal
     {
+        public static void Run(string[] args)
+        {
+
+        }
     }
 }

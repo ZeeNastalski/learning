@@ -46,6 +46,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="StartingThread.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThreadLocal.cs" />
     <Compile Include="ThreadStatic.cs" />
   </ItemGroup>
   <ItemGroup>
