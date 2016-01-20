@@ -11,8 +11,8 @@ namespace Threads
         static void Main(string[] args)
         {
             //StartingThread.Run(args);
-            ThreadStatic.Run(args);
-
+            //ThreadStatic.Run(args);
+            ThreadLocalExample.Run(args);
 
             
         }
