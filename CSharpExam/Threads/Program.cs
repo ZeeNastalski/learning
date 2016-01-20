@@ -12,7 +12,8 @@ namespace Threads
         {
             //StartingThread.Run(args);
             //ThreadStatic.Run(args);
-            ThreadLocalExample.Run(args);
+            //ThreadLocalExample.Run(args);
+            ThreadPoolExample.Run();
 
             
         }
