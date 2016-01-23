@@ -10,11 +10,13 @@ namespace Threads
     {
         static void Main(string[] args)
         {
-            //StartingThread.Run(args);
-            //ThreadStatic.Run(args);
-            //ThreadLocalExample.Run(args);
-            ThreadPoolExample.Run();
-
+            // StartingThread.Run(args);
+            // ThreadStatic.Run(args);
+            // ThreadLocalExample.Run(args);
+            // ThreadPoolExample.Run();
+            // TaskWithContinuation.Run();
+            // TaskFactoryExample.Run();
+            WaitAny.Run();
             
         }
     }
