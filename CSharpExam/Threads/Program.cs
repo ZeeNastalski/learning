@@ -16,7 +16,8 @@ namespace Threads
             // ThreadPoolExample.Run();
             // TaskWithContinuation.Run();
             // TaskFactoryExample.Run();
-            WaitAny.Run();
+            // WaitAny.Run();
+            ParallelExample.Run();
             
         }
     }
