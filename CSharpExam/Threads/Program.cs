@@ -18,7 +18,8 @@ namespace Threads
             // TaskFactoryExample.Run();
             // WaitAny.Run();
             // ParallelExample.Run();
-            AreTaskThreads.Run();
+            // AreTaskThreads.Run();
+            PLINQ.Run();
             
         }
     }

@@ -53,6 +53,7 @@
     <Compile Include="ThreadLocal.cs" />
     <Compile Include="ThreadPoolExample.cs" />
     <Compile Include="ThreadStatic.cs" />
+    <Compile Include="PLINQ.cs" />
     <Compile Include="WaitAny.cs" />
   </ItemGroup>
   <ItemGroup>
