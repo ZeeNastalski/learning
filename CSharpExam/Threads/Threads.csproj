@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreTaskThreads.cs" />
+    <Compile Include="BlockingCollectionExample.cs" />
     <Compile Include="ParallelExample.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="StartingThread.cs" />

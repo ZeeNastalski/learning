@@ -19,7 +19,8 @@ namespace Threads
             // WaitAny.Run();
             // ParallelExample.Run();
             // AreTaskThreads.Run();
-            PLINQ.Run();
+            // PLINQ.Run();
+            BlockingCollectionExample.Run();
             
         }
     }
