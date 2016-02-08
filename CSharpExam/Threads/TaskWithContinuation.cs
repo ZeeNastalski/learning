@@ -11,8 +11,9 @@ namespace Threads
         private static int TaskMethod()
         {
           
-            throw new Exception("Piss off");        
+            throw new Exception("Piss off");
 
+            #pragma warning disable 0162
             return 42;
         }
 

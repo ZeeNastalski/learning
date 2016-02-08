@@ -15,14 +15,9 @@ namespace Threads
 
             Task read = Task.Run(() => 
             {
-                while(true)
+                foreach(var item in col.GetConsumingEnumerable())
                 {
-                    if (col.Count == 0 && col.IsAddingCompleted)
-                    {
-                        break;
-                    }
-
-                    Console.WriteLine(col.Take() + " " + col.Count);                      
+                    Console.WriteLine("Read " + item);
                 }
             });
 
