@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threads", "Threads\Threads.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManageMultithreading", "ManageMultithreading\ManageMultithreading.csproj", "{78AE9361-A6D9-48B0-9E93-17233DE8041A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventsAndCallbacks", "EventsAndCallbacks\EventsAndCallbacks.csproj", "{3FEBC3B0-8458-4F6A-994D-0CD2E967F0BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{78AE9361-A6D9-48B0-9E93-17233DE8041A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78AE9361-A6D9-48B0-9E93-17233DE8041A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78AE9361-A6D9-48B0-9E93-17233DE8041A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FEBC3B0-8458-4F6A-994D-0CD2E967F0BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FEBC3B0-8458-4F6A-994D-0CD2E967F0BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FEBC3B0-8458-4F6A-994D-0CD2E967F0BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FEBC3B0-8458-4F6A-994D-0CD2E967F0BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
