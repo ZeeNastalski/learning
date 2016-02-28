@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BreadthFirstSearch", "BreadthFirstSearch\BreadthFirstSearch.vcxproj", "{83ECCDEC-A8FC-4953-BA1B-C88F98826539}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NumberOperations", "NumbersOperations\NumbersOperations.vcxproj", "{791F362F-3BFE-4172-9A89-B24E3E4153CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChainInspectionCSharp", "ChainInspectionCSharp\ChainInspectionCSharp.csproj", "{E95FD35E-3DA4-452A-A102-8952B3559BD4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WendyMinDistance", "WendyMinDistance\WendyMinDistance.vcxproj", "{DB458EC2-3B13-424B-B307-07B4F4C0628E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WendyIterator", "WendyIterator\WendyIterator.vcxproj", "{5EE94581-2601-46CA-BCFE-BACFF713380C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChainInspectionCSharp", "ChainInspection\ChainInspectionCSharp.csproj", "{E95FD35E-3DA4-452A-A102-8952B3559BD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,26 @@ Global
 		{791F362F-3BFE-4172-9A89-B24E3E4153CC}.Release|x64.Build.0 = Release|x64
 		{791F362F-3BFE-4172-9A89-B24E3E4153CC}.Release|x86.ActiveCfg = Release|Win32
 		{791F362F-3BFE-4172-9A89-B24E3E4153CC}.Release|x86.Build.0 = Release|Win32
+		{DB458EC2-3B13-424B-B307-07B4F4C0628E}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{DB458EC2-3B13-424B-B307-07B4F4C0628E}.Debug|x64.ActiveCfg = Debug|x64
+		{DB458EC2-3B13-424B-B307-07B4F4C0628E}.Debug|x64.Build.0 = Debug|x64
+		{DB458EC2-3B13-424B-B307-07B4F4C0628E}.Debug|x86.ActiveCfg = Debug|Win32
+		{DB458EC2-3B13-424B-B307-07B4F4C0628E}.Debug|x86.Build.0 = Debug|Win32
+		{DB458EC2-3B13-424B-B307-07B4F4C0628E}.Release|Any CPU.ActiveCfg = Release|Win32
+		{DB458EC2-3B13-424B-B307-07B4F4C0628E}.Release|x64.ActiveCfg = Release|x64
+		{DB458EC2-3B13-424B-B307-07B4F4C0628E}.Release|x64.Build.0 = Release|x64
+		{DB458EC2-3B13-424B-B307-07B4F4C0628E}.Release|x86.ActiveCfg = Release|Win32
+		{DB458EC2-3B13-424B-B307-07B4F4C0628E}.Release|x86.Build.0 = Release|Win32
+		{5EE94581-2601-46CA-BCFE-BACFF713380C}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{5EE94581-2601-46CA-BCFE-BACFF713380C}.Debug|x64.ActiveCfg = Debug|x64
+		{5EE94581-2601-46CA-BCFE-BACFF713380C}.Debug|x64.Build.0 = Debug|x64
+		{5EE94581-2601-46CA-BCFE-BACFF713380C}.Debug|x86.ActiveCfg = Debug|Win32
+		{5EE94581-2601-46CA-BCFE-BACFF713380C}.Debug|x86.Build.0 = Debug|Win32
+		{5EE94581-2601-46CA-BCFE-BACFF713380C}.Release|Any CPU.ActiveCfg = Release|Win32
+		{5EE94581-2601-46CA-BCFE-BACFF713380C}.Release|x64.ActiveCfg = Release|x64
+		{5EE94581-2601-46CA-BCFE-BACFF713380C}.Release|x64.Build.0 = Release|x64
+		{5EE94581-2601-46CA-BCFE-BACFF713380C}.Release|x86.ActiveCfg = Release|Win32
+		{5EE94581-2601-46CA-BCFE-BACFF713380C}.Release|x86.Build.0 = Release|Win32
 		{E95FD35E-3DA4-452A-A102-8952B3559BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E95FD35E-3DA4-452A-A102-8952B3559BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E95FD35E-3DA4-452A-A102-8952B3559BD4}.Debug|x64.ActiveCfg = Debug|Any CPU
