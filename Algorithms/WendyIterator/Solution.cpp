@@ -5,6 +5,7 @@ using namespace std;
 
 Solution::Solution(istream& s)
 {
+
 	//TODO parse input
 	vec = { 5,6,7,8 };
 }
