@@ -52,6 +52,37 @@ namespace EventsAndCallbacks
             }
         }
 
+        class CustomEventAccessor
+        {
+            private event EventHandler<MyArgs> onChange = delegate { };
+
+            public event EventHandler<MyArgs> OnChange
+            {
+                add
+                {
+                    lock (onChange)
+                    {
+                        onChange += value;
+                    }
+                }
+
+                remove
+                {
+                    lock (onChange)
+                    {
+                        onChange -= value;
+                    }
+                }
+            }
+   
+
+            public void Raise()
+            {
+                onChange(this, new MyArgs("custom event handler"));
+            }
+        }
+
+
         [TestMethod]
         public void ActionEvent()
         {
@@ -101,10 +132,15 @@ namespace EventsAndCallbacks
             };
 
             p.OnChange += handleEvent;
+
+            p.OnChange += (sender, args) => {
+                Console.WriteLine("Handler 2 fired with args {0}", args.Value);
+            };
             p.Raise();
 
             Assert.IsTrue(actionCalled);
         }
+
 
 
 
