@@ -1,0 +1,46 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfDemo"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:ModelViews="clr-namespace:WpfDemo.ModelViews" x:Class="WpfDemo.MainWindow" 
+        xmlns:converters="clr-namespace:WpfDemo.Converters"
+        
+        
+        Title="MainWindow" Height="674.188" Width="800" ResizeMode="NoResize" Topmost="False" WindowState="Normal" Icon="./Resources/OneDrive.ico">
+    <Window.Resources>
+        <sys:String x:Key="strHelloAgain">Hello Again</sys:String>
+        <converters:PersonToVisibilityConverter x:Key="PersonToVisibilityConverter"/>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+    </Window.Resources>
+    <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+        
+        <StackPanel.DataContext>
+            <ModelViews:MainViewModel/>
+        </StackPanel.DataContext>
+
+        
+        <TextBlock HorizontalAlignment="Center" Text="Hello World" FontSize="40"/>
+        <TextBlock HorizontalAlignment="Center" Text="{StaticResource strHelloAgain}" FontSize="40"/>
+        <ListView Name="lvNames" Height="353" ItemsSource="{Binding PersonsList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <Image Source="./Images/SteamVR/controller_left_status_ready.png " Width="30"/>
+                        <Label Content="{Binding Name}" />
+                        <Label Content="{Binding Age}" Visibility="{Binding Converter={StaticResource PersonToVisibilityConverter}, Mode=OneWay}" ></Label>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Name="btnAdd" Height="31" Width="100" HorizontalAlignment="Center" Content="Add More" Click="btnAdd_Click" />
+        <Button Name="btnChange" Height="31" Width="100" HorizontalAlignment="Center" Content="Change" Click="BtnChange_OnClick" />
+
+    </StackPanel>
+</Window>
