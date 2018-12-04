@@ -12,6 +12,8 @@ public class CalculatePivot : MonoBehaviour
 
     private List<Tuple<Vector3, Quaternion>> samples = new List<Tuple<Vector3, Quaternion>>();
 
+    public GameObject ArrowPrefab;
+    public GameObject PivotPointPrefab;
     public string SamplesFile = @"c:\temp\samples.csv";
     public bool RecordingSamples = false;
 
@@ -203,6 +205,7 @@ public class CalculatePivot : MonoBehaviour
             rot.z = float.Parse(line[5]);
             rot.w = float.Parse(line[6]);
 
+            Instantiate(ArrowPrefab, pos, rot);
             samples.Add(Tuple.Create(pos,rot));
         }
 
@@ -215,11 +218,11 @@ public class CalculatePivot : MonoBehaviour
 
         BestError = Single.MaxValue; ;
 
-        float backStart = 0.13f;
-        float backEnd = 0.20f;
-        float downStart = 0.15f;
-        float downEnd = 0.30f;
-        float step = 0.0002f;
+        float backStart = 0.01f;
+        float backEnd = 0.1f;
+        float downStart = 0.01f;
+        float downEnd = 0.1f;
+        float step = 0.001f;
 
         float back = backStart;
         float down = downStart;
@@ -241,7 +244,13 @@ public class CalculatePivot : MonoBehaviour
                 down += step;
             }
             back += step;
-        }       
+        }
+
+        foreach (var sample in samples)
+        {
+            Vector3 point = sample.Item1 + BestBack * (sample.Item2 * Vector3.back) + BestDown * (sample.Item2 * Vector3.down);
+            Instantiate(PivotPointPrefab, point, Quaternion.identity);
+        }
     }
 
 
