@@ -27,7 +27,9 @@ public class CalculatePivot : MonoBehaviour
 
     public float BestBack;
     public float BestDown;
+    public float BestLeft;
     public float BestError;
+    
 
 
     // tracking monitor section
@@ -214,33 +216,44 @@ public class CalculatePivot : MonoBehaviour
 
     private void CalculateNewPivot()
     {
-        Error = CalculateError(Back, Down);
+        //Error = CalculateError(Back, Down, );
 
         BestError = Single.MaxValue; ;
 
-        float backStart = 0.01f;
-        float backEnd = 0.1f;
-        float downStart = 0.01f;
-        float downEnd = 0.1f;
-        float step = 0.001f;
+        float backStart =  0.03f;
+        float backEnd   =  0.09f;
+        float downStart =  0.03f;
+        float downEnd   =  0.09f;
+        float leftStart = -0.04f;
+        float leftEnd   =  0.04f;
+        float step      =  0.01f;
+
+
 
         float back = backStart;
         float down = downStart;
+        float left = leftStart;
 
         while (back < backEnd)
         {
             down = downStart;
             while (down < downEnd)
             {
-                float newError = CalculateError(back, down);
-
-                if (newError < BestError)
+                left = leftStart;
+                while (left < leftEnd)
                 {
-                    BestError = newError;
-                    BestBack = back;
-                    BestDown = down;
-                }
-                
+                    float newError = CalculateError(back, down, left);
+
+                    if (newError < BestError)
+                    {
+                        BestError = newError;
+                        BestBack = back;
+                        BestDown = down;
+                        BestLeft = left;
+                    }
+
+                    left += step;
+                }                               
                 down += step;
             }
             back += step;
@@ -255,7 +268,7 @@ public class CalculatePivot : MonoBehaviour
 
 
 
-    private float CalculateError(float back, float down)
+    private float CalculateError(float back, float down, float left)
     {
         Vector3 max;
         max.x = Single.MinValue;
@@ -273,7 +286,10 @@ public class CalculatePivot : MonoBehaviour
             Vector3 pos = sample.Item1;
             Quaternion rot = sample.Item2;
 
-            Vector3 point = pos + back * (rot * Vector3.back) + down * (rot * Vector3.down);
+            Vector3 point = pos + 
+                            back * (rot * Vector3.back) + 
+                            down * (rot * Vector3.down) +
+                            left * (rot * Vector3.left);
 
             max.x = (point.x > max.x) ? point.x : max.x;
             max.y = (point.y > max.y) ? point.y : max.y;
