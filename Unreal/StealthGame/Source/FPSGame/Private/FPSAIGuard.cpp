@@ -4,6 +4,7 @@
 #include "DrawDebugHelpers.h"
 #include "Perception/PawnSensingComponent.h"
 #include "FPSGameMode.h"
+#include "Net/UnrealNetwork.h"
 
 
 // Sets default values
@@ -17,6 +18,8 @@ AFPSAIGuard::AFPSAIGuard()
 	PawnSensingComp->OnHearNoise.AddDynamic(this, &AFPSAIGuard::OnNoiseHeard);
 
 	GuardState = EAIState::Idle;
+
+	SetReplicates(true);
 }
 
 void AFPSAIGuard::OnSeePawn(APawn * SeenPawn)
@@ -71,6 +74,12 @@ void AFPSAIGuard::BeginPlay()
 	
 }
 
+void AFPSAIGuard::OnRep_GuardState()
+{
+	OnStateChanged(GuardState);
+}
+
+
 void AFPSAIGuard::SetGuardState(EAIState NewState)
 {
 	if (NewState == GuardState)
@@ -79,8 +88,7 @@ void AFPSAIGuard::SetGuardState(EAIState NewState)
 	}
 
 	GuardState = NewState;
-
-	OnStateChanged(NewState);
+	OnRep_GuardState();
 }
 
 void AFPSAIGuard::ResetOrienation()
@@ -100,6 +108,12 @@ void AFPSAIGuard::ResetOrienation()
 void AFPSAIGuard::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void AFPSAIGuard::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AFPSAIGuard, GuardState);
 }
 
 

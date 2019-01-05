@@ -33,7 +33,12 @@ protected:
 	UPROPERTY(EditAnywhere)
 	UPawnSensingComponent* PawnSensingComp;
 
+    UPROPERTY(ReplicatedUsing=OnRep_GuardState)
 	EAIState GuardState;
+
+	UFUNCTION()
+	void OnRep_GuardState();
+
 	void SetGuardState(EAIState NewState);
 
 	FRotator OriginalRotation;
