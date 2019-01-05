@@ -1,0 +1,13 @@
+{
+  "name": "auzre-timer-bot",
+  "version": "0.0.0",
+  "description": "AuzreTimerBot",
+  "main": "server.js",
+  "author": {
+    "name": "zee"
+  },
+  "dependencies": {
+    "botbuilder": "^3.4.4",
+    "restify": "^4.3.0"
+  }
+}
