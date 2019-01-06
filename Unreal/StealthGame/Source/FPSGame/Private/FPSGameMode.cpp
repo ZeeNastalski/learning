@@ -24,7 +24,6 @@ void AFPSGameMode::CompleteMission(APawn* InstigatorPawn, bool bMissionSuccess)
 {
 	if (InstigatorPawn)
 	{
-		InstigatorPawn->DisableInput(nullptr);
 
 		TArray<AActor*> viewpoints;
 		UGameplayStatics::GetAllActorsOfClass(this, this->SpectatingViewPoint, viewpoints);
@@ -36,7 +35,16 @@ void AFPSGameMode::CompleteMission(APawn* InstigatorPawn, bool bMissionSuccess)
 			FViewTargetTransitionParams params;
 			params.BlendTime = 0.5f;
 
-			PC->SetViewTargetWithBlend(viewpoints[0], 0.5f, EViewTargetBlendFunction::VTBlend_Cubic);
+			for (auto It = GetWorld()->GetPlayerControllerIterator(); It; It++)
+			{
+				// SetViewTargetWithBlend does all the replication so it is ok to call it on server for all PlayerControllers
+				APlayerController* PC = It->Get();
+				if (PC)
+				{
+					PC->SetViewTargetWithBlend(viewpoints[0], 0.5f, EViewTargetBlendFunction::VTBlend_Cubic);
+				}
+			}
+			
 		}
 
 	}
