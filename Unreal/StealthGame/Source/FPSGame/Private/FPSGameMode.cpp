@@ -3,6 +3,7 @@
 #include "FPSGameMode.h"
 #include "FPSHUD.h"
 #include "FPSCharacter.h"
+#include "FPSGameState.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -14,13 +15,15 @@ AFPSGameMode::AFPSGameMode()
 
 	// use our custom HUD class
 	HUDClass = AFPSHUD::StaticClass();
+
+	GameStateClass = AFPSGameState::StaticClass();
 }
 
 
 void AFPSGameMode::CompleteMission(APawn* InstigatorPawn, bool bMissionSuccess)
 {
 	if (InstigatorPawn)
-	{		
+	{
 		InstigatorPawn->DisableInput(nullptr);
 
 		TArray<AActor*> viewpoints;
@@ -32,15 +35,17 @@ void AFPSGameMode::CompleteMission(APawn* InstigatorPawn, bool bMissionSuccess)
 		{
 			FViewTargetTransitionParams params;
 			params.BlendTime = 0.5f;
-			
+
 			PC->SetViewTargetWithBlend(viewpoints[0], 0.5f, EViewTargetBlendFunction::VTBlend_Cubic);
 		}
 
 	}
 
+	AFPSGameState* GS = GetGameState<AFPSGameState>();
+	if (GS)
+	{
+		GS->MulticastOnMissionComplete(InstigatorPawn, bMissionSuccess);
+	}
 
 	OnMissionCompleted(InstigatorPawn, bMissionSuccess);
-
-
-
 }
