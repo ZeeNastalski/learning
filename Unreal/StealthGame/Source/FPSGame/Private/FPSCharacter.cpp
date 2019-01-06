@@ -7,7 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/PawnNoiseEmitterComponent.h"
-
+#include "Net/UnrealNetwork.h"
 
 void AFPSCharacter::ServerFire_Implementation()
 {
@@ -126,11 +126,20 @@ void AFPSCharacter::MoveForward(float Value)
 }
 
 
-void AFPSCharacter::MoveRight(float Value)
+void AFPSCharacter::MoveRight(float Value)			
 {
 	if (Value != 0.0f)
 	{
 		// add movement in that direction
 		AddMovementInput(GetActorRightVector(), Value);
 	}
+}
+
+void AFPSCharacter::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AFPSCharacter, bIsCarryingObjective);
+
+	// replicates only to the owner of the actor
+	//DOREPLIFETIME(AFPSCharacter, bIsCarryingObjective, COND_OwnerOnly);
 }
