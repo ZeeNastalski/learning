@@ -3,6 +3,7 @@ using System.Threading;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Compact;
+using Serilog.Formatting.Json;
 
 namespace ConsoleApp1
 {
@@ -14,20 +15,24 @@ namespace ConsoleApp1
             
             Log.Logger = new LoggerConfiguration()
                 //.WriteTo.Console()
-                .WriteTo.File(new CompactJsonFormatter(), "myapp.json")
+                .WriteTo.File(new CompactJsonFormatter(new JsonValueFormatter(typeTagName: null)), @"c:\ZeroLatency\Logging\myapp.json", fileSizeLimitBytes: 1L*1024, rollOnFileSizeLimit: true, retainedFileCountLimit: 5, rollingInterval: RollingInterval.Day)
+                .WriteTo.Console(new CompactJsonFormatter(new JsonValueFormatter(typeTagName: null)))
                 .CreateLogger();
-                
 
-            LogEvent(new ZLSampleEvent()
+            for (int i = 0; i < 10 * 10; i++)
             {
-                PlayerName = "Jack",
-                PlayerScore = 666,
-                DoubleArray = new[] {0.1, 0.2, 0.3},
-                Subobject = new ZLSubObject()
+                Thread.Sleep(1100);
+                LogEvent(new ZLSampleEvent()
                 {
-                    IsIncluded = true
-                }
-            });
+                    PlayerName = "Michael",
+                    PlayerScore = 666,
+                    DoubleArray = new[] {0.1, 0.2, 0.3},
+                    Subobject = new ZLSubObject()
+                    {
+                        IsIncluded = true
+                    }
+                });
+            }
 
             Thread.Sleep(1000);
         }
@@ -38,6 +43,8 @@ namespace ConsoleApp1
             string format = "{@" + myEvent.GetType().Name +"}";
             Log.Logger.Information(format, myEvent);
         }
+
+
     }
 
 
