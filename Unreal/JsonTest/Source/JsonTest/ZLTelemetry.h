@@ -27,4 +27,5 @@ public:
 
 protected:
 	void AppendLineToLog(FString line);
+	void InitializeNewLogFile();
 };

@@ -3,6 +3,8 @@
 #include "ZLTelemetry.h"
 #include "Runtime/JsonUtilities/Public/JsonObjectConverter.h"
 #include "Runtime/Core/Public/Misc/Paths.h"
+#include "Runtime/Core/Public/HAL/FileManager.h"
+#include "Runtime/Core/Public/Misc/FileHelper.h"
 
 ZLTelemetry::ZLTelemetry(FString path)
 {
@@ -32,12 +34,33 @@ void ZLTelemetry::AppendLineToLog(FString line)
 {
 	if (CurrentFilePath.IsEmpty())
 	{
-		// We don't have a log file assigned yet. 
-		FString path;
-		FString filename;
-		FString extension;
-
-		FPaths::Split(this->LogPath, path, filename, extension);
+		InitializeNewLogFile();
 
 	}
+
+	FFileHelper::SaveStringToFile(line + TEXT("\r\n"),
+		*LogPath, FFileHelper::EEncodingOptions::ForceAnsi,
+		&IFileManager::Get(),
+		EFileWrite::FILEWRITE_Append);
+}
+
+void ZLTelemetry::InitializeNewLogFile()
+{
+	// We don't have a log file assigned yet. 
+	FString path;
+	FString filename;
+	FString extension;
+
+	FPaths::Split(this->LogPath, path, filename, extension);
+
+	FDateTime now = FDateTime::Now();	
+	filename.Append("_" + now.ToString((TEXT("%Y%m%d-%H%M%S"))));
+
+	//create directory if it doesn't exist
+	IFileManager::Get().MakeDirectory(*path, true);
+
+	LogPath = path + "\\"+filename +"." + extension;
+
+	UE_LOG(LogTemp, Log, TEXT("new telemetry log: %s"), *LogPath);
+
 }
