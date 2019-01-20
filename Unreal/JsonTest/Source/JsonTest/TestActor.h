@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Runtime/JsonUtilities/Public/JsonObjectConverter.h"
 #include "TestActor.generated.h"
+
 
 
 USTRUCT()
@@ -23,7 +25,7 @@ struct FPerson : public FTelemetryEvent
 	GENERATED_BODY()
 public:
 	UPROPERTY()
-	FString PersonsName;
+	FString Name;
 
 	UPROPERTY()
 	FString occupation;
@@ -58,7 +60,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	template<typename InStructType> void LogTelemetryEvent(const InStructType& InStruct);
+
+	template<typename InStructType>
+	static void LogTelemetryEvent(const InStructType& InStruct);
 
 	
 	
