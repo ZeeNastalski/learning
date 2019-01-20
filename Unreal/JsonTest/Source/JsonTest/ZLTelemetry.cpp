@@ -9,12 +9,12 @@ void UZLTelemetry::LogTelemetryEvent(const UStruct* StructDefinition, const void
 {
 	FString InnerString;
 	FString now = FDateTime::UtcNow().ToIso8601();
-
-	FName typeName = StructDefinition->GetFName();
+	
+	FString typeName = StructDefinition->GetFName().ToString();
 
 	FJsonObjectConverter::UStructToJsonObjectString(StructDefinition, Struct, InnerString, 0, 0, 0, nullptr, false);
 
 	// Encapsulate inStruct in object named by the class name and add timestamp to the root
-	FString jsonString = FString::Printf(TEXT("{\"@t\":\"%s\",\"%s\":%s}"), *now, *(typeName.ToString()), *InnerString);
+	FString jsonString = FString::Printf(TEXT("{\"@t\":\"%s\",\"%s\":%s,\"@type\":\"%s\"}"), *now, *typeName, *InnerString, *typeName);
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *jsonString);
 }
