@@ -3,13 +3,19 @@
 #include "ZLTelemetry.h"
 #include "Runtime/JsonUtilities/Public/JsonObjectConverter.h"
 
+ZLTelemetry::ZLTelemetry()
+{
+}
 
+ZLTelemetry::~ZLTelemetry()
+{
+}
 
-void UZLTelemetry::LogTelemetryEvent(const UStruct* StructDefinition, const void* Struct)
+void ZLTelemetry::LogEvent(const UStruct* StructDefinition, const void* Struct)
 {
 	FString InnerString;
 	FString now = FDateTime::UtcNow().ToIso8601();
-	
+
 	FString typeName = StructDefinition->GetFName().ToString();
 
 	FJsonObjectConverter::UStructToJsonObjectString(StructDefinition, Struct, InnerString, 0, 0, 0, nullptr, false);

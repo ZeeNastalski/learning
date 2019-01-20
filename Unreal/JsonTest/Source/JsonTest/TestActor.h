@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+//#include "ZLTelemetry.h"
 #include "TestActor.generated.h"
 
 
@@ -54,6 +55,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	//UZLTelemetry telemetry;
 
 public:	
 	// Called every frame

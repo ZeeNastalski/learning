@@ -3,25 +3,21 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
-#include "ZLTelemetry.generated.h"
 
 /**
  * 
  */
-UCLASS()
-class JSONTEST_API UZLTelemetry : public UObject
+class JSONTEST_API ZLTelemetry
 {
-	GENERATED_BODY()
+public:
+	ZLTelemetry();
+	~ZLTelemetry();
 
-public:	
-
-	
-	static void LogTelemetryEvent(const UStruct* StructDefinition, const void* Struct);
+	void LogEvent(const UStruct* StructDefinition, const void* Struct);
 
 	template<typename InStructType>
-	static void LogTelemetryEvent(const InStructType& InStruct) 
+	void LogEvent(const InStructType& InStruct)
 	{
-		LogTelemetryEvent(InStructType::StaticStruct(), &InStruct);
+		LogEvent(InStructType::StaticStruct(), &InStruct);
 	}
 };

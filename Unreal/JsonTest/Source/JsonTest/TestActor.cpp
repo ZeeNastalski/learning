@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TestActor.h"
-#include "ZLTelemetry.h"
-#include "Runtime/JsonUtilities/Public/JsonObjectConverter.h"
+#include "ZLGameInstance.h"
+
 
 
 // Sets default values
@@ -28,7 +28,8 @@ void ATestActor::BeginPlay()
 	Person.pos.Z = 3.0f;
 	Person.rot = GetActorRotation();
 		
-	UZLTelemetry::LogTelemetryEvent(Person);
+	UZLGameInstance *gs = Cast<UZLGameInstance>(GetGameInstance());
+	gs->Telemetry.LogEvent(Person);
 }
 
 
