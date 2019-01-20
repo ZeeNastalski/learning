@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Runtime/JsonUtilities/Public/JsonObjectConverter.h"
 #include "TestActor.generated.h"
 
 
@@ -59,11 +58,5 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-
-	template<typename InStructType>
-	static void LogTelemetryEvent(const InStructType& InStruct);
-
-	
 	
 };

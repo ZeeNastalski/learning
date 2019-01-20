@@ -2,7 +2,7 @@
 
 #include "TestActor.h"
 #include "ZLTelemetry.h"
-
+#include "Runtime/JsonUtilities/Public/JsonObjectConverter.h"
 
 
 // Sets default values
@@ -28,7 +28,7 @@ void ATestActor::BeginPlay()
 	Person.pos.Z = 3.0f;
 	Person.rot = GetActorRotation();
 		
-	ATestActor::LogTelemetryEvent(Person);
+	UZLTelemetry::LogTelemetryEvent(Person);
 }
 
 
@@ -39,20 +39,7 @@ void ATestActor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-template<typename InStructType>
-void ATestActor::LogTelemetryEvent(const InStructType& InStruct)
-{
-	FString InnerString;
-	FString now = FDateTime::UtcNow().ToIso8601();
 
-	FName typeName = InStruct.StaticStruct()->GetFName();
-
-	FJsonObjectConverter::UStructToJsonObjectString(InStruct, InnerString, 0, 0, 0, nullptr, false);
-
-	// Encapsulate inStruct in object named by the class name and add timestamp to the root
-	FString jsonString = FString::Printf(TEXT("{\"@t\":\"%s\",\"%s\":%s}"), *now, *(typeName.ToString()), *InnerString);
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *jsonString);
-}
 
 
 
