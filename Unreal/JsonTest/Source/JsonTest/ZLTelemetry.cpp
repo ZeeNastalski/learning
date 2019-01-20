@@ -2,9 +2,11 @@
 
 #include "ZLTelemetry.h"
 #include "Runtime/JsonUtilities/Public/JsonObjectConverter.h"
+#include "Runtime/Core/Public/Misc/Paths.h"
 
-ZLTelemetry::ZLTelemetry()
+ZLTelemetry::ZLTelemetry(FString path)
 {
+	LogPath = path;
 }
 
 ZLTelemetry::~ZLTelemetry()
@@ -23,4 +25,19 @@ void ZLTelemetry::LogEvent(const UStruct* StructDefinition, const void* Struct)
 	// Encapsulate inStruct in object named by the class name and add timestamp to the root
 	FString jsonString = FString::Printf(TEXT("{\"@t\":\"%s\",\"%s\":%s,\"@type\":\"%s\"}"), *now, *typeName, *InnerString, *typeName);
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *jsonString);
+	AppendLineToLog(jsonString);
+}
+
+void ZLTelemetry::AppendLineToLog(FString line)
+{
+	if (CurrentFilePath.IsEmpty())
+	{
+		// We don't have a log file assigned yet. 
+		FString path;
+		FString filename;
+		FString extension;
+
+		FPaths::Split(this->LogPath, path, filename, extension);
+
+	}
 }

@@ -10,8 +10,12 @@
 class JSONTEST_API ZLTelemetry
 {
 public:
-	ZLTelemetry();
+	ZLTelemetry(FString LogPath = "c:\\ZeroLatency\\Logging\\unrealgame.json");
 	~ZLTelemetry();
+
+
+	FString LogPath;
+	FString CurrentFilePath;
 
 	void LogEvent(const UStruct* StructDefinition, const void* Struct);
 
@@ -20,4 +24,7 @@ public:
 	{
 		LogEvent(InStructType::StaticStruct(), &InStruct);
 	}
+
+protected:
+	void AppendLineToLog(FString line);
 };

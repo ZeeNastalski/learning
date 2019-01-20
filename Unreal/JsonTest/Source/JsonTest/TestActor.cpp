@@ -26,6 +26,8 @@ void ATestActor::BeginPlay()
 	Person.pos.X = 1.0f;
 	Person.pos.Y = 2.0f;
 	Person.pos.Z = 3.0f;
+	Person.VecArray.Add(Person.pos);
+	Person.VecArray.Add(Person.pos);
 	Person.rot = GetActorRotation();
 		
 	UZLGameInstance *gs = Cast<UZLGameInstance>(GetGameInstance());

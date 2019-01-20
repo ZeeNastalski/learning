@@ -16,7 +16,7 @@ struct FTelemetryEvent
 public:
 	
 	UPROPERTY()
-	int32 version = 1000;
+	int32 version = 20190120;
 };
 
 USTRUCT()
@@ -38,6 +38,9 @@ public:
 
 	UPROPERTY()
 	FRotator rot;
+
+	UPROPERTY()
+	TArray<FVector> VecArray;
 };
 
 
