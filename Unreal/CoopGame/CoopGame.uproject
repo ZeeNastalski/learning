@@ -1,8 +1,9 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{2D87042B-4337-B7F5-98CA-D8AEF96BE15D}",
+	"EngineAssociation": "4.22",
 	"Category": "",
 	"Description": "",
+	"Enterprise": true,
 	"Modules": [
 		{
 			"Name": "CoopGame",

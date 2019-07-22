@@ -6,8 +6,6 @@
 #include "GameFramework/Character.h"
 #include "SCharacter.generated.h"
 
-class UCameraComponent;
-
 UCLASS()
 class COOPGAME_API ASCharacter : public ACharacter
 {
@@ -20,12 +18,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
-	void MoveForward(float axis);
-	void MoveRight(float axis);
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
-	UCameraComponent* CameraComp;
+	void MoveForward(float Value);
+	void MoveRight(float Value);
 
 public:	
 	// Called every frame
@@ -34,6 +29,4 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	
-	
 };

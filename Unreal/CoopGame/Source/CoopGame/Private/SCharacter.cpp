@@ -1,31 +1,20 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+
 #include "SCharacter.h"
-#include "Camera/CameraComponent.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
-
 }
 
 // Called when the game starts or when spawned
 void ASCharacter::BeginPlay()
 {
-	Super::BeginPlay();	
-}
-
-void ASCharacter::MoveForward(float axis)
-{
-	AddMovementInput(GetActorForwardVector() * axis);
-}
-
-void ASCharacter::MoveRight(float axis)
-{
-	AddMovementInput(GetActorRightVector() * axis);
+	Super::BeginPlay();
+	
 }
 
 // Called every frame
@@ -35,7 +24,15 @@ void ASCharacter::Tick(float DeltaTime)
 
 }
 
+void ASCharacter::MoveForward(float Value)
+{
+	AddMovementInput(GetActorForwardVector() * Value);
+}
 
+void ASCharacter::MoveRight(float Value)
+{
+	AddMovementInput(GetActorRightVector() * Value);
+}
 // Called to bind functionality to input
 void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -43,9 +40,5 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &ASCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ASCharacter::MoveRight);
-
-	PlayerInputComponent->BindAxis("LookUp", this, &ASCharacter::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis("Turn", this, &ASCharacter::AddControllerYawInput);
-
 }
 
