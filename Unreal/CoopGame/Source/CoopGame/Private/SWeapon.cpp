@@ -4,6 +4,7 @@
 #include "SWeapon.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "DrawDebugHelpers.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ASWeapon::ASWeapon()
@@ -43,7 +44,8 @@ void ASWeapon::Fire()
 	FHitResult Hit;
 	if (GetWorld()->LineTraceSingleByChannel(Hit, EyeLocation, TraceEnd, ECC_Visibility, QueryParams))
 	{
-
+		AActor* HiyActor = Hit.GetActor();
+		UGameplayStatics::ApplyPointDamage(HiyActor, 20.0f, EyeRotation.Vector(), Hit, myOwner->GetInstigatorController(), this, DamageType);
 	}
 
 	DrawDebugLine(GetWorld(), EyeLocation, TraceEnd, FColor::White, false, 1.0f, 0, 1.0f);
