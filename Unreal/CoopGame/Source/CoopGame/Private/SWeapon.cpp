@@ -81,7 +81,7 @@ void ASWeapon::Fire()
 			}
 			else
 			{
-				beam->SetVectorParameter("target", TraceEnd);
+				beam->SetVectorParameter("Target", TraceEnd);
 			}
 		}
 	}

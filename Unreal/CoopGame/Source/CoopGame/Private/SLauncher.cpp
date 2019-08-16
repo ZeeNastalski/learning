@@ -23,15 +23,19 @@ void ASLauncher::Fire()
 	if (ProjectileClass)
 	{
 		FVector MuzzleLocation = MeshComp->GetSocketLocation(MuzzleSocketName);
-		FRotator MuzzleRotation = MeshComp->GetSocketRotation(MuzzleSocketName);
 
 		FActorSpawnParameters ActorSpawnParams;
 		ActorSpawnParams.Instigator = myOwner->GetInstigator();
 
+		FVector EyeLocation;
+		FRotator EyeRotation;
+
+		myOwner->GetActorEyesViewPoint(EyeLocation, EyeRotation);
+
 		//TODO: Consider changing to AdjustIfPossibleButAlwaysSpawn. Currently if player is close to wall the projectile shouldn't spawn
 		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
-		GetWorld()->SpawnActor<ASProjectile>(ProjectileClass, MuzzleLocation, MuzzleRotation, ActorSpawnParams);
+		GetWorld()->SpawnActor<ASProjectile>(ProjectileClass, MuzzleLocation, EyeRotation, ActorSpawnParams);
 	}
 
 }

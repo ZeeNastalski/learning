@@ -4,6 +4,9 @@
 #include "SProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "TimerManager.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 ASProjectile::ASProjectile()
@@ -32,11 +35,12 @@ ASProjectile::ASProjectile()
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = true;
 
-	// Die after 3 seconds by default
-	InitialLifeSpan = 3.0f;
 
 	SetReplicates(true);
 	SetReplicateMovement(true);
+
+	InitialLifeSpan = .0f;
+	
 }
 
 
@@ -51,9 +55,36 @@ void ASProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrim
 	}
 
 	if (Role == ROLE_Authority)
+	{		
+		OnProjectileDestroyed();	
+	}
+}
+
+void ASProjectile::OnProjectileDestroyed()
+{
+	if (!isDestroyed)
 	{
-		MakeNoise(1.0f, Instigator);
+		isDestroyed = true;
+
+		DrawDebugSphere(GetWorld(), this->GetActorLocation(), ExplosionRadius, 32, FColor::Blue, false, 3.0f);
+
+		if (ExplosionEffect)
+		{
+
+			TArray<AActor*> IgnoredActors;
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, this->GetActorLocation());
+			UGameplayStatics::ApplyRadialDamage(GetWorld(), ExplosionDamage, this->GetActorLocation(), ExplosionRadius, ExplosionDamageType, IgnoredActors);
+		}
+
 		Destroy();
 	}
+}
+
+void ASProjectile::BeginPlay()
+{
+	Super::BeginPlay();
+	FTimerHandle timeHandle;
+	GetWorldTimerManager().SetTimer(timeHandle, this, &ASProjectile::OnProjectileDestroyed, 1.0f, false);
+	
 }
 
