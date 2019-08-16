@@ -6,6 +6,7 @@
 #include "DrawDebugHelpers.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
+#include "Particles/ParticleSystemComponent.h"
 
 // Sets default values
 ASWeapon::ASWeapon()
@@ -47,20 +48,45 @@ void ASWeapon::Fire()
 	FHitResult Hit;
 	if (GetWorld()->LineTraceSingleByChannel(Hit, EyeLocation, TraceEnd, ECC_Visibility, QueryParams))
 	{
-		AActor* HiyActor = Hit.GetActor();
-		UGameplayStatics::ApplyPointDamage(HiyActor, 20.0f, EyeRotation.Vector(), Hit, myOwner->GetInstigatorController(), this, DamageType);
+		AActor* HitActor = Hit.GetActor();
+		UGameplayStatics::ApplyPointDamage(HitActor, 20.0f, EyeRotation.Vector(), Hit, myOwner->GetInstigatorController(), this, DamageType);
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.ImpactPoint, Hit.ImpactNormal.Rotation());
 	}
 
+	/*
 	if (ImpactEffect)
 	{
 		DrawDebugLine(GetWorld(), EyeLocation, TraceEnd, FColor::White, false, 1.0f, 0, 1.0f);
 	}
+	*/
 
 	if(MuzzleEffect)
 	{
 		UGameplayStatics::SpawnEmitterAttached(MuzzleEffect, MeshComp, MuzzleSocketName);
 	}
+
+	if (BeamEffect)
+	{
+		UParticleSystemComponent* beam = UGameplayStatics::SpawnEmitterAtLocation(
+			GetWorld(), 
+			BeamEffect, 
+			MeshComp->GetSocketLocation(MuzzleSocketName));
+
+		if (beam)
+		{
+			AActor* HitActor = Hit.GetActor();
+			if (HitActor)
+			{
+				beam->SetVectorParameter("Target", Hit.ImpactPoint);
+			}
+			else
+			{
+				beam->SetVectorParameter("target", TraceEnd);
+			}
+		}
+	}
+
+
 }
 
 // Called every frame
