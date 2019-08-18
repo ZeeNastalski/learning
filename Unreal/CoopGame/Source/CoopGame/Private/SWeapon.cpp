@@ -8,6 +8,10 @@
 #include "Particles/ParticleSystem.h"
 #include "Particles/ParticleSystemComponent.h"
 
+// Debugging weapon/projectile drawing lines 
+static int32 DebugWeaponDrawing;
+FAutoConsoleVariableRef CVARDebugWeaponDrawing(TEXT("COOP.DebugWeapons"), DebugWeaponDrawing, TEXT("Draw Debug Lines"), ECVF_Cheat);
+
 // Sets default values
 ASWeapon::ASWeapon()
 {
@@ -53,12 +57,12 @@ void ASWeapon::Fire()
 		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.ImpactPoint, Hit.ImpactNormal.Rotation());
 	}
 
-	/*
-	if (ImpactEffect)
+	
+	if (DebugWeaponDrawing > 0)
 	{
 		DrawDebugLine(GetWorld(), EyeLocation, TraceEnd, FColor::White, false, 1.0f, 0, 1.0f);
 	}
-	*/
+	
 
 	if(MuzzleEffect)
 	{

@@ -8,6 +8,8 @@
 #include "TimerManager.h"
 #include "DrawDebugHelpers.h"
 
+
+
 // Sets default values
 ASProjectile::ASProjectile()
 {
@@ -66,7 +68,9 @@ void ASProjectile::OnProjectileDestroyed()
 	{
 		isDestroyed = true;
 
+
 		DrawDebugSphere(GetWorld(), this->GetActorLocation(), ExplosionRadius, 32, FColor::Blue, false, 3.0f);
+
 
 		if (ExplosionEffect)
 		{

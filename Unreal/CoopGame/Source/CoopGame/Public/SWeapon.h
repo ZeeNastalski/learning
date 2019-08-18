@@ -10,6 +10,7 @@ class USkeletalMeshComponent;
 class UDamageType;
 class UParticleSystem;
 
+
 UCLASS()
 class COOPGAME_API ASWeapon : public AActor
 {

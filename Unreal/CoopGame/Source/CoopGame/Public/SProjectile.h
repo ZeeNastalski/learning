@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "SProjectile.generated.h"
 
+
 class UProjectileMovementComponent;
 class USphereComponent;
 class UParticleSystem;
