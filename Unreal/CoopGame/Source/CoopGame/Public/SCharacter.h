@@ -8,6 +8,7 @@
 
 class UCameraComponent;
 class USpringArmComponent;
+class ASWeapon;
 
 UCLASS()
 class COOPGAME_API ASCharacter : public ACharacter
@@ -40,12 +41,18 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Components", meta = (ClampMin = 0.1, ClampMax = 100))
 	float ZoomInterpSpeed;
 
+	UPROPERTY(EditDefaultsOnly, Category="Player")
+	TSubclassOf<ASWeapon> StarterWeaponClass;
+
 	float DefaultFOV;	
 	bool WantsToZoom;
 
 	void BeginZoom();
 	void EndZoom();
 
+	ASWeapon* CurrentWeapon;
+
+	void Fire();
 
 public:	
 	// Called every frame
