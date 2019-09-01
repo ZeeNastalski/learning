@@ -52,7 +52,8 @@ protected:
 
 	ASWeapon* CurrentWeapon;
 
-	void Fire();
+	void StartFire();
+	void StopFire();
 
 public:	
 	// Called every frame

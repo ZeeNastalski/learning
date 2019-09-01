@@ -1,14 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-
-#include "CoopGame.h"
 #include "SWeapon.h"
+#include "CoopGame.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "DrawDebugHelpers.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "PhysicalMaterials/PhysicalMaterial.h"
+#include "TimerManager.h"
 
 // Debugging weapon/projectile drawing lines 
 static int32 DebugWeaponDrawing;
@@ -22,12 +21,15 @@ ASWeapon::ASWeapon()
 
 	MuzzleSocketName = "MuzzleSocket";
 	BaseDamage = 20.0f;
+	RateOfFire = 600;
 }
 
 
 
 void ASWeapon::Fire()
 {
+	GetWorld()->TimeSeconds;
+
 	AActor* myOwner = GetOwner();
 
 	if (!myOwner) return;
@@ -121,6 +123,21 @@ void ASWeapon::Fire()
 		}
 	}
 
+}
+
+void ASWeapon::StartFire()
+{	
+	
+	float timeBetweenShots = 60 / RateOfFire;
+	float firstDelay = FMath::Max(LastFireTime + timeBetweenShots - GetWorld()->TimeSeconds,0.0f);
+
+	GetWorld()->GetTimerManager().SetTimer(TimarHandle_TimeBetweenShots, this, &ASWeapon::Fire, timeBetweenShots, true, firstDelay);
+	Fire();
+}
+
+void ASWeapon::StopFire()
+{
+	GetWorld()->GetTimerManager().ClearTimer(TimarHandle_TimeBetweenShots);
 }
 
 
