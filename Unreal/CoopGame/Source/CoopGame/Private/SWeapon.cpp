@@ -1,12 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
+#include "CoopGame.h"
 #include "SWeapon.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "DrawDebugHelpers.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "PhysicalMaterials/PhysicalMaterial.h"
 
 // Debugging weapon/projectile drawing lines 
 static int32 DebugWeaponDrawing;
@@ -15,11 +17,11 @@ FAutoConsoleVariableRef CVARDebugWeaponDrawing(TEXT("COOP.DebugWeapons"), DebugW
 // Sets default values
 ASWeapon::ASWeapon()
 {
-
 	MeshComp = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("MeshComp"));
 	RootComponent = MeshComp;
 
 	MuzzleSocketName = "MuzzleSocket";
+	BaseDamage = 20.0f;
 }
 
 
@@ -40,14 +42,41 @@ void ASWeapon::Fire()
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(myOwner);
 	QueryParams.AddIgnoredActor(this);
+	QueryParams.bReturnPhysicalMaterial = true;
 	QueryParams.bTraceComplex = true;
 
 	FHitResult Hit;
-	if (GetWorld()->LineTraceSingleByChannel(Hit, EyeLocation, TraceEnd, ECC_Visibility, QueryParams))
+	if (GetWorld()->LineTraceSingleByChannel(Hit, EyeLocation, TraceEnd, ECC_GameTraceChannel1, QueryParams))
 	{
 		AActor* HitActor = Hit.GetActor();
-		UGameplayStatics::ApplyPointDamage(HitActor, 20.0f, EyeRotation.Vector(), Hit, myOwner->GetInstigatorController(), this, DamageType);
-		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.ImpactPoint, Hit.ImpactNormal.Rotation());
+				
+		EPhysicalSurface SurfaceType = UPhysicalMaterial::DetermineSurfaceType(Hit.PhysMaterial.Get());
+
+		UParticleSystem* SelectedEffect = nullptr;
+		
+		switch (SurfaceType)
+		{
+		case SURFACE_FLESHDEFAULT:
+		case SURFACE_VENERAUBLE:
+			SelectedEffect = FleshImpactEffect;
+			break;
+		default:
+			SelectedEffect = DefaultImpactEffect;
+		}
+
+		if (SelectedEffect)
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), SelectedEffect, Hit.ImpactPoint, Hit.ImpactNormal.Rotation());
+		}
+
+		float ActualDamage = BaseDamage;
+
+		if (SurfaceType == SURFACE_VENERAUBLE)
+		{
+			ActualDamage *= 4;
+		}
+
+		UGameplayStatics::ApplyPointDamage(HitActor, ActualDamage, EyeRotation.Vector(), Hit, myOwner->GetInstigatorController(), this, DamageType);
 	}
 
 	
@@ -56,7 +85,6 @@ void ASWeapon::Fire()
 		DrawDebugLine(GetWorld(), EyeLocation, TraceEnd, FColor::White, false, 1.0f, 0, 1.0f);
 	}
 	
-
 	if(MuzzleEffect)
 	{
 		UGameplayStatics::SpawnEmitterAttached(MuzzleEffect, MeshComp, MuzzleSocketName);

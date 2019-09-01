@@ -4,3 +4,7 @@
 
 #include "CoreMinimal.h"
 
+
+#define SURFACE_FLESHDEFAULT SurfaceType1
+#define SURFACE_VENERAUBLE SurfaceType2
+#define WEAPON_CHANNEL ECC_EngineTraceChannel1
