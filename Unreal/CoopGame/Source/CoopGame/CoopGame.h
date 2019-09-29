@@ -7,4 +7,5 @@
 
 #define SURFACE_FLESHDEFAULT SurfaceType1
 #define SURFACE_VENERAUBLE SurfaceType2
-#define WEAPON_CHANNEL ECC_EngineTraceChannel1
+#define WEAPON_CHANNEL ECC_EngineTraceChannel1 
+#define WEAPON_COLLISION ECC_GameTraceChannel1
