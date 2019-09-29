@@ -9,6 +9,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class ASWeapon;
+class USHealthComponent;
 
 UCLASS()
 class COOPGAME_API ASCharacter : public ACharacter
@@ -44,6 +45,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="Player")
 	TSubclassOf<ASWeapon> StarterWeaponClass;
 
+	USHealthComponent* HealthComp;
+
 	float DefaultFOV;	
 	bool WantsToZoom;
 
@@ -52,8 +55,14 @@ protected:
 
 	ASWeapon* CurrentWeapon;
 
+	UPROPERTY(BlueprintReadOnly, Category="Player")
+	bool bDied;
+
 	void StartFire();
 	void StopFire();
+
+	UFUNCTION()
+	void OnHealthChanged(USHealthComponent* HealthComp, float Health, float HealthDelta, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 
 public:	
 	// Called every frame
