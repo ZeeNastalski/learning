@@ -89,6 +89,13 @@ void UZLGameViewportClient::Tick(float DeltaTime)
 		return;
 	}
 
+
+	if (mode != ELauncherMode::GAME_MASTER)
+	{
+		Super::Tick(DeltaTime);
+		return;
+	}
+
 	if (GS)
 	{
 		int32 PlayerCount = GS->PlayerArray.Num();
@@ -107,7 +114,7 @@ void UZLGameViewportClient::Tick(float DeltaTime)
 			if(!pawn) continue; 
 
 			// skip players that other than the ZL player pawn
-			if(!pawn->GetName().Contains(TEXT("ArkieZeroLatencyPlayerPawn"))) continue;
+			if(!pawn->GetName().Contains(TEXT("BP_Player"))) continue;
 
 			// found a remote player that's not gm or spectator and has a pawn, Add it.
 			if (!LocalPlayerMap.Contains(player->PlayerId))
@@ -196,8 +203,8 @@ APawn* UZLGameViewportClient::PawnForPlayerId(int32 id)
 
 FString UZLGameViewportClient::ModeString()
 {
-	ELauncherMode mode = UZLCoreBlueprintFunctionLibrary::GetLauncherMode();
-	
+	ELauncherMode mode = UZLCoreBlueprintFunctionLibrary::GetLauncherMode();	
+
 	if (mode == ELauncherMode::SERVER)
 	{
 		return FString(TEXT("SERVER"));
@@ -237,13 +244,19 @@ void UZLGameViewportClient::LayoutPlayers()
 		return;
 	}
 
+	/*
 	if (mode == ELauncherMode::UNKNOWN || mode == ELauncherMode::BACKPACK)
 	{
 		Super::LayoutPlayers();
 		return;
 	}
+	*/
 
-
+	if (mode != ELauncherMode::GAME_MASTER)
+	{
+		Super::LayoutPlayers();
+		return;
+	}
 
 	// There are no remote players. In this case we show the view of the default local player
 	if (RemotePlayerCount == 0)
@@ -333,6 +346,21 @@ APlayerController* UZLGameViewportClient::CreatePlayer(const UObject* WorldConte
 	}
 
 	return (LocalPlayer ? LocalPlayer->PlayerController : nullptr);
+}
+
+ULocalPlayer* UZLGameViewportClient::CreateLocalPlayer(const UObject* WorldContextObject, int32 ControllerId, bool bSpawnPawn)
+{
+	UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull);
+	FString Error;
+
+	ULocalPlayer* LocalPlayer = World ? World->GetGameInstance()->CreateLocalPlayer(ControllerId, Error, bSpawnPawn) : NULL;
+
+	if (Error.Len() > 0)
+	{
+		UE_LOG(LogPlayerManagement, Error, TEXT("Failed to Create Player: %s"), *Error);
+	}
+
+	return LocalPlayer;
 }
 
 

@@ -12,6 +12,9 @@ class ZLCORE_API UZLCoreBlueprintFunctionLibrary : public UBlueprintFunctionLibr
 	GENERATED_BODY()
 
 public:
+
+	static ELauncherMode ModeOverride;
+
 	UFUNCTION(BlueprintPure, Category = ZeroLatency)
 	static UZLCallbackHandler* GetCallbackHandler();
 
@@ -75,8 +78,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = ZeroLatency)
 	static void SetContentDimensions(FVector2D dimensions);
 
+	UFUNCTION(BlueprintCallable, Category = ZeroLatency)
+	static void OverrideLauncherMode(ELauncherMode mode);
+
 	static void SetPlayerTrackingUpdate(FZLPlayerTrackingData playerInfo);
 
 	// translate the vector such that the X and Y components are transformed, and the Z component remains the same.
 	static FVector SpaceMatrixTransformPosition(FMatrix spaceMatrix, FVector value);
+
+	
 };

@@ -3,6 +3,10 @@
 #include "ZLCallbackHandler.h"
 #include "Misc/CommandLine.h"
 
+
+ELauncherMode UZLCoreBlueprintFunctionLibrary::ModeOverride = ELauncherMode::UNKNOWN;
+
+
 UZLCallbackHandler* UZLCoreBlueprintFunctionLibrary::GetCallbackHandler()
 {
  	auto& CoreModule = FModuleManager::GetModuleChecked<FZLCoreModule>(TEXT("ZLCore"));
@@ -132,6 +136,12 @@ void UZLCoreBlueprintFunctionLibrary::SetContentDimensions(FVector2D dimensions)
 	CoreModule.SetContentDimensions(dimensions);
 }
 
+//TODO, this is for my testing only
+void UZLCoreBlueprintFunctionLibrary::OverrideLauncherMode(ELauncherMode mode)
+{
+	UZLCoreBlueprintFunctionLibrary::ModeOverride = mode;
+}
+
 void UZLCoreBlueprintFunctionLibrary::SetPlayerTrackingUpdate(FZLPlayerTrackingData trackingData)
 {
 	auto& CoreModule = FModuleManager::GetModuleChecked<FZLCoreModule>(TEXT("ZLCore"));
@@ -141,6 +151,13 @@ void UZLCoreBlueprintFunctionLibrary::SetPlayerTrackingUpdate(FZLPlayerTrackingD
 
 ELauncherMode UZLCoreBlueprintFunctionLibrary::GetLauncherMode()
 {
+	//TODO, remove
+	if (ModeOverride != ELauncherMode::UNKNOWN)
+	{
+		return ModeOverride;
+	}
+
+
 	ELauncherMode launcherMode = UZLCoreBlueprintFunctionLibrary::GetLauncherInfo().Mode;
 
 	// Override the mode if command line parameter is specified

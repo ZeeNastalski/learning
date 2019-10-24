@@ -38,6 +38,8 @@ public:
 	virtual void LayoutPlayers() override;
 
 	APlayerController * CreatePlayer(const UObject * WorldContextObject, int32 ControllerId, bool bSpawnPawn);
+
+	ULocalPlayer * CreateLocalPlayer(const UObject * WorldContextObject, int32 ControllerId, bool bSpawnPawn);
 	
 	virtual void Tick(float DeltaTime) override;
 
