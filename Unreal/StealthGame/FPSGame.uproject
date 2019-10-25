@@ -9,18 +9,9 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"Engine"
+				"Engine",
+				"UMG"
 			]
-		}
-	],
-	"Plugins": [
-		{
-			"Name": "ZLCore",
-			"Enabled": true
-		},
-		{
-			"Name": "ZLSteamVR",
-			"Enabled": true
 		}
 	]
 }
