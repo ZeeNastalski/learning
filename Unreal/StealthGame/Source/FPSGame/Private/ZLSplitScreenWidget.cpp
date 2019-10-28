@@ -117,7 +117,7 @@ TArray<FSplitScreenView> UZLSplitScreenWidget::RebuildSplitScreen()
 		*/
 	}
 
-	FVector2D CanvasSize = Canvas->GetCachedGeometry().GetAbsoluteSize();
+	FVector2D CanvasSize = Canvas->GetCachedGeometry().GetLocalSize();
 		
 	// find all scene capture 2d in pawns
 	TArray<APawn*> players;
@@ -210,7 +210,7 @@ bool UZLSplitScreenWidget::DoesNeedRebuild()
 	// Resolution of the canvas change
 	if (Canvas)
 	{
-		FVector2D currentCanvasLocalSize = Canvas->GetCachedGeometry().GetAbsoluteSize();
+		FVector2D currentCanvasLocalSize = Canvas->GetCachedGeometry().GetLocalSize();
 		if (currentCanvasLocalSize.X != BuiltCanvasSize.X) return true;
 		if (currentCanvasLocalSize.Y != BuiltCanvasSize.Y) return true;
 	}
