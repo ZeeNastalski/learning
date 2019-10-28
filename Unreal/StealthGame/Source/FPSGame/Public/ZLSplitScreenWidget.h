@@ -22,6 +22,12 @@ struct FPSGAME_API FSplitScreenView
 
 	UPROPERTY(BlueprintReadWrite, Category = "SplitScreen")
 	FVector2D Size;	
+
+	UPROPERTY(BlueprintReadWrite, Category = "SplitScreen")
+	UTextureRenderTarget2D* RenderTarget;
+
+	UPROPERTY(BlueprintReadWrite, Category = "SplitScreen")
+	USceneCaptureComponent2D* Capture;
 };
 
 

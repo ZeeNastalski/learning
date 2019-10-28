@@ -137,47 +137,59 @@ TArray<FSplitScreenView> UZLSplitScreenWidget::RebuildSplitScreen()
 		ssView.Size.Y = CanvasSize.Y * SplitscreenInfo[PlayerCount].PlayerData[i].SizeY;
 
 		UImage* image = ViewportImages[i];
-
-		/*
+		
+		
 		// Get SceneCaputre2D from player (this should be part of ZL player interface)
 		USceneCaptureComponent2D* capture = Cast<USceneCaptureComponent2D>(player->GetComponentByClass(USceneCaptureComponent2D::StaticClass()));
 		
-		//Create render target
+		/*
+		// Create render target
 		UTextureRenderTarget2D* rendTarget = UKismetRenderingLibrary::CreateRenderTarget2D(
 			GetWorld(), 
 			FMath::CeilToInt(ssView.Size.X), 
 			FMath::CeilToInt(ssView.Size.Y), 
 			ETextureRenderTargetFormat::RTF_RGBA16f);
 
+		capture->TextureTarget = rendTarget;
+		
+
 		// Create material instance
 		UMaterialInstanceDynamic* ViewportMaterialInstance = UMaterialInstanceDynamic::Create(RenderMaterial, this);
+		
+
+
 
 		
 		// Set render target as a texture for the material instance
 		ViewportMaterialInstance->SetTextureParameterValue("Texture", rendTarget);
+		*/
+
 
 		// Pass material to the caller
-		ssView.ViewportMaterial = ViewportMaterialInstance;
+		//ssView.ViewportMaterial = ViewportMaterialInstance;
+		//ssView.RenderTarget = rendTarget;
 
-		views.Add(ssView);
+		ssView.Capture = capture;
 
-		
 
-		image->SetBrushFromMaterial(ViewportMaterialInstance);
-		
+		/*
+		image->SetBrushFromMaterial(ViewportMaterialInstance);	
 		image->SetBrushSize(ssView.Size);
 		*/
 
+		views.Add(ssView);
+	
+
+		/*
 		UCanvasPanelSlot* slot = Cast<UCanvasPanelSlot>(image->Slot);
 		slot->SetPosition(ssView.Origin);
-
+		*/
 		//save the canvas size so we can detect when it changes
 		BuiltCanvasSize = CanvasSize;		
 
 		UE_LOG(LogTemp, Log, TEXT("Allocated Viewport %d. Origin: (%f,%f) Size: (%f,%f)"), i, ssView.Origin.X, ssView.Origin.Y, ssView.Size.X, ssView.Size.Y);
+	
 	}
-
-
 
 	// TODO, Order viewports so they are consistent with the Launcher
 	
