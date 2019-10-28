@@ -15,16 +15,10 @@ struct FPSGAME_API FSplitScreenView
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadWrite, Category = "SplitScreen")
-	UMaterialInstanceDynamic* ViewportMaterial;
-
-	UPROPERTY(BlueprintReadWrite, Category = "SplitScreen")
 	FVector2D Origin;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SplitScreen")
 	FVector2D Size;	
-
-	UPROPERTY(BlueprintReadWrite, Category = "SplitScreen")
-	UTextureRenderTarget2D* RenderTarget;
 
 	UPROPERTY(BlueprintReadWrite, Category = "SplitScreen")
 	USceneCaptureComponent2D* Capture;
@@ -50,25 +44,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SplitScreen")
 	virtual bool DoesNeedRebuild();
 
-
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SplitScreen")
 	UCanvasPanel* Canvas;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SplitScreen")
-	TArray<UImage*> ViewportImages;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SplitScreen")
 	TSubclassOf<APawn> PlayerPawnClass;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SplitScreen")
-	UMaterialInterface* RenderMaterial;
-
-
 
 protected:
 	void FindSplitScreenPawns(TArray<APawn*>& OutPawns);
-	TArray<struct FSplitscreenData> SplitscreenInfo;
+	TArray<struct FSplitscreenData> SplitScreenLookup;
 	
 	FVector2D BuiltCanvasSize;
 	int BuiltPlayers;
