@@ -35,7 +35,7 @@ namespace NancySelfHosted
         protected override void ConfigureConventions(NancyConventions nancyConventions)
         {
             
-            nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("download", @"/../games"));
+            nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("", @"/../games"));
             nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("games", @"/../zerolatency/launcher/games"));
             base.ConfigureConventions(nancyConventions);
         }
@@ -61,13 +61,19 @@ namespace NancySelfHosted
             config.UrlReservations.CreateAutomatically = true;
             config.AllowChunkedEncoding = false;
             string uri = "http://localhost:8666";
+            string uri2 = "http://localhost:8667";
 
             var host = new NancyHost(config, new Uri(uri));
-            
+            var host2 = new NancyHost(config, new Uri(uri2));
+
             host.Start();
+            host2.Start();
+
             Console.WriteLine($"Running on {uri}");
             Console.ReadLine();
+
             host.Stop();
+            host2.Stop();
         }
     }
 }
