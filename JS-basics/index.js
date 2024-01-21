@@ -1,20 +1,12 @@
-let blogPost = {
-    title: 'Hello',
-    body: 'This is my first blog post',
-    author: 'Zulu',
-    views: 666,
-    comments: [
-        {
-            author: 'Ania',
-            body: 'I love you',
-        },
-        {
-            author: 'Zbyszek',
-            body: 'I love you too'
-        }
-    ],
-    isLive: true,
+
+
+
+
+
+let globalVar = 666;
+
+someFunction();
+
+function someFunction(){
+    return globalVar *2;
 }
-
-
-console.log(blogPost);
